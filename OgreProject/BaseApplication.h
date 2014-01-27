@@ -31,7 +31,7 @@ This source file is part of the
 //#include <OISKeyboard.h>
 //#include <OISMouse.h>
 //
-
+#include "stdafx.h"
 
 class BaseApplication : public Ogre::FrameListener, public Ogre::WindowEventListener, public OIS::KeyListener, public OIS::MouseListener, OgreBites::SdkTrayListener
 {
