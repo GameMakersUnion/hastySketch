@@ -48,7 +48,7 @@ void Game::createScene(void)
 	Ogre::Camera *mCamera2 = mSceneMgr->createCamera("PaperCam");
 
 	// Position it at 500 in Z direction
-	mCamera2->setPosition(Ogre::Vector3(0, 0, 0));
+	mCamera2->setPosition(Ogre::Vector3(0, 0, 15));
 	// Look back along -Z
 	mCamera2->lookAt(Ogre::Vector3(0, 0, 300));
 	mCamera2->setNearClipDistance(.001);
@@ -79,23 +79,23 @@ void Game::createScene(void)
 	Ogre::ManualObject *man = mSceneMgr->createManualObject("Paper");
 	man->begin("RttMat", Ogre::RenderOperation::OT_TRIANGLE_LIST);
 
-	//man->position(-19, 9,  13);
-	//man->textureCoord(0, 1);
-	//man->position(31, 9,   13);
-	//man->textureCoord(1, 1);
-	//man->position(31, 42, 13);
-	//man->textureCoord(1, 0);
-	//man->position(-19, 42, 13);
-	//man->textureCoord(0, 0);
-
-	man->position(-5, -5, 13);
+	man->position(-19, 9,  13);
 	man->textureCoord(0, 1);
-	man->position(5, -5, 13);
+	man->position(31, 9,   13);
 	man->textureCoord(1, 1);
-	man->position(5, 5, 13);
+	man->position(31, 42, 13);
 	man->textureCoord(1, 0);
-	man->position(-5, 5, 13);
+	man->position(-19, 42, 13);
 	man->textureCoord(0, 0);
+
+	//man->position(-5, -5, 13);
+	//man->textureCoord(0, 1);
+	//man->position(5, -5, 13);
+	//man->textureCoord(1, 1);
+	//man->position(5, 5, 13);
+	//man->textureCoord(1, 0);
+	//man->position(-5, 5, 13);
+	//man->textureCoord(0, 0);
 	
 	man->quad(0, 1, 2, 3);
 	man->end();
@@ -104,7 +104,7 @@ void Game::createScene(void)
 
 	SceneNode * miniSceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("MiniSceneNode");
 	miniSceneNode->attachObject(man);
-	miniSceneNode->translate(0, -10, 20);
+	//miniSceneNode->translate(0, -10, 20);
 	//miniSceneNode->scale(2, 2, 1);
 
 	//surface->setMaterial("RttMat");
@@ -151,7 +151,7 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	//player.playerNode->rotate(Vector3(0, 0, 1), (Radian)10, Ogre::Node::TS_LOCAL);
 	mSceneMgr->getSceneNode("myNinjaNode")->rotate(Ogre::Vector3(0,1,0), (Radian) .1);
 
-	mSceneMgr->getSceneNode("MiniSceneNode")->rotate(Ogre::Vector3(0, 1, 0), (Radian) .01);
+	//mSceneMgr->getSceneNode("MiniSceneNode")->rotate(Ogre::Vector3(0, 1, 0), (Radian) .01);
 	 
 	return ret;
 
