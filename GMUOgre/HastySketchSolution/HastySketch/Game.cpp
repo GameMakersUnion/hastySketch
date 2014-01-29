@@ -42,6 +42,17 @@ void Game::createScene(void)
 	mCameraMan->setTarget(player.playerNode);
 	mCameraMan->setYawPitchDist((Radian)0, (Radian)0, 50);
 
+
+
+	// Create the camera
+	Ogre::Camera *mCamera2 = mSceneMgr->createCamera("PaperCam");
+
+	// Position it at 500 in Z direction
+	mCamera2->setPosition(Ogre::Vector3(0, 0, 0));
+	// Look back along -Z
+	mCamera2->lookAt(Ogre::Vector3(0, 0, 300));
+	mCamera2->setNearClipDistance(.001);
+
 	//---------------MINI SCREEN INITIALIZATION
 
 	TexturePtr rtt_texture = TextureManager::getSingleton().createManual("RttTex",
@@ -49,7 +60,7 @@ void Game::createScene(void)
 		PF_R8G8B8, TU_RENDERTARGET);
 
 	RenderTexture * renderTexture = rtt_texture->getBuffer()->getRenderTarget();
-	renderTexture->addViewport(mCamera);
+	renderTexture->addViewport(mCamera2);
 	renderTexture->getViewport(0)->setClearEveryFrame(true);
 	renderTexture->getViewport(0)->setBackgroundColour(ColourValue::White);
 	renderTexture->getViewport(0)->setOverlaysEnabled(false);
@@ -68,16 +79,23 @@ void Game::createScene(void)
 	Ogre::ManualObject *man = mSceneMgr->createManualObject("Paper");
 	man->begin("RttMat", Ogre::RenderOperation::OT_TRIANGLE_LIST);
 
-	man->position(-19, 9,  13);
-	man->textureCoord(0, 0);
-	man->position(31, 9,   13);
-	man->textureCoord(1, 0);
-	man->position(31, 42, 13);
-	man->textureCoord(1, 1);
+	//man->position(-19, 9,  13);
+	//man->textureCoord(0, 1);
+	//man->position(31, 9,   13);
+	//man->textureCoord(1, 1);
+	//man->position(31, 42, 13);
+	//man->textureCoord(1, 0);
+	//man->position(-19, 42, 13);
+	//man->textureCoord(0, 0);
 
-	man->position(-19, 42, 13);
+	man->position(-5, -5, 13);
 	man->textureCoord(0, 1);
-
+	man->position(5, -5, 13);
+	man->textureCoord(1, 1);
+	man->position(5, 5, 13);
+	man->textureCoord(1, 0);
+	man->position(-5, 5, 13);
+	man->textureCoord(0, 0);
 	
 	man->quad(0, 1, 2, 3);
 	man->end();
@@ -86,12 +104,23 @@ void Game::createScene(void)
 
 	SceneNode * miniSceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("MiniSceneNode");
 	miniSceneNode->attachObject(man);
-	
+	miniSceneNode->translate(0, -10, 20);
+	//miniSceneNode->scale(2, 2, 1);
 
 	//surface->setMaterial("RttMat");
-
+	
 
 	//------------END MINI-SCREEN
+
+	Entity* ninja = mSceneMgr->createEntity("myNinja", "ninja.mesh");
+	SceneNode* ninjaNode = mSceneMgr->createSceneNode("myNinjaNode");
+	ninjaNode->setPosition(0, 0, 250);
+	ninjaNode->setScale(.5, .5, .5);
+	ninjaNode->setOrientation(.5, 0, 1, 0);
+	ninjaNode->attachObject(ninja);
+	mSceneMgr->getRootSceneNode()->addChild(ninjaNode);
+
+
 }
 
 
@@ -120,8 +149,12 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
 	//player.setPosition(Vector3(pos3.x, pos3.y, pos3.z + 0.01)); //ascend
 	//player.playerNode->rotate(Vector3(0, 0, 1), (Radian)10, Ogre::Node::TS_LOCAL);
+	mSceneMgr->getSceneNode("myNinjaNode")->rotate(Ogre::Vector3(0,1,0), (Radian) .1);
 
+	mSceneMgr->getSceneNode("MiniSceneNode")->rotate(Ogre::Vector3(0, 1, 0), (Radian) .01);
+	 
 	return ret;
+
 }
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
