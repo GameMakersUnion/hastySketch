@@ -20,6 +20,8 @@
 
 #include <SdkTrays.h>
 #include <SdkCameraMan.h>
+#include "Utils.h"
+
 
 // any other header can be included, as usual
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
