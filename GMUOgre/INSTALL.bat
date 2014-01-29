@@ -6,6 +6,6 @@ setx OGRE_HOME %cd%\Ogre
 
 REM Copy .cfg files to %OGRE_HOME%
 
-copy "Configs\Debug\" "%OGRE_HOME%\bin\Debug\"
-copy "Configs\Release\" "%OGRE_HOME%\bin\Release\"
+copy "Configs\DebugCfg\" "%OGRE_HOME%\bin\Debug\"
+copy "Configs\ReleaseCfg\" "%OGRE_HOME%\bin\Release\"
 
