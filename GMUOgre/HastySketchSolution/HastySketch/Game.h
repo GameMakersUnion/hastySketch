@@ -8,6 +8,7 @@ Main Game Code
 #define __Game_h_
 
 #include "BaseApplication.h"
+#include "Actor.h"
 #include "Player.h"
 
 class Game : public BaseApplication
@@ -17,6 +18,7 @@ public:
 	virtual ~Game(void);
 	std::set<OIS::KeyCode> keyList;
 	Player player;
+	std::set<Actor*> ActorSet;
 
 protected:
 	virtual void createScene(void);

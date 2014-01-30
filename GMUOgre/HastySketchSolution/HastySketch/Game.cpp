@@ -1,5 +1,5 @@
 #include "stdafx.h"
-
+#include "boost\foreach.hpp"
 /*
 -----------------------------------------------------------------------------
 Filename:    Game.cpp
@@ -39,10 +39,9 @@ void Game::createScene(void)
 	deskNode->attachObject(desk);
 
 	player = Player(mSceneMgr);
-	mCameraMan->setTarget(player.playerNode);
+	mCameraMan->setTarget(player.actorNode);
 	mCameraMan->setYawPitchDist((Radian)0, (Radian)0, 50);
-
-
+	
 
 	// Create the camera
 	Ogre::Camera *mCamera2 = mSceneMgr->createCamera("PaperCam");
@@ -112,14 +111,38 @@ void Game::createScene(void)
 
 	//------------END MINI-SCREEN
 
-	Entity* ninja = mSceneMgr->createEntity("myNinja", "ninja.mesh");
+	Entity* nin = mSceneMgr->createEntity("myNinja", "ninja.mesh");
 	SceneNode* ninjaNode = mSceneMgr->createSceneNode("myNinjaNode");
-	ninjaNode->setPosition(0, 0, 250);
+	ninjaNode->setPosition(-100, -100, 250);
 	ninjaNode->setScale(.5, .5, .5);
 	ninjaNode->setOrientation(.5, 0, 1, 0);
-	ninjaNode->attachObject(ninja);
+	ninjaNode->attachObject(nin);
 	mSceneMgr->getRootSceneNode()->addChild(ninjaNode);
 
+	Actor* ninja = new Actor(nin, ninjaNode);
+	Real xRot = 0.5; Real xRotChange = 0.5;
+	
+	for (int i = 0; i < 10; ++i)
+	{
+		for (int j = 0; j < 10; ++j)
+		{
+		
+			Actor* ninja2 = Actor::cloneActor(mSceneMgr, ninja, Vector3(i * 50, j * 50, 0));
+			ninja2->actorNode->setOrientation(.1 + xRot, 0, 1, 0);
+			//ActorSet.insert(ninja2);
+			
+			//Actor act = *ninja2;
+			//ActorSet.insert(act);
+
+			xRot += xRotChange;
+		}
+	}
+
+
+	//ActorSet.emplace((Actor)*ninja);
+	
+
+	//Actor* ninja2 = Actor::cloneActor(mSceneMgr, ninja, Vector3(10, 0, 0));
 
 }
 
@@ -140,18 +163,39 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
 	bool ret = BaseApplication::frameRenderingQueued(evt);
 
-	player.playerUpdate(keyList);
+	player.Update(keyList);
 
 	Camera* cam = mSceneMgr->getCamera("PlayerCam");
 	Ogre::Vector3 pos3 = player.getPosition3();
 
 	cam->setPosition(Vector3(pos3.x, pos3.y, cam->getPosition().z));
+	//Camera* cam2 = mSceneMgr->getCamera("PaperCam");
+	//cam2->rotate(Vector3(0, 1, 0), (Radian)0.001);
 
 	//player.setPosition(Vector3(pos3.x, pos3.y, pos3.z + 0.01)); //ascend
-	//player.playerNode->rotate(Vector3(0, 0, 1), (Radian)10, Ogre::Node::TS_LOCAL);
-	mSceneMgr->getSceneNode("myNinjaNode")->rotate(Ogre::Vector3(0,1,0), (Radian) .1);
+	//player.actorNode->rotate(Vector3(0, 0, 1), (Radian)10, Ogre::Node::TS_LOCAL);
+	//mSceneMgr->getSceneNode("myNinjaNode")->rotate(Ogre::Vector3(0,1,0), (Radian) .1);
 
 	//mSceneMgr->getSceneNode("MiniSceneNode")->rotate(Ogre::Vector3(0, 1, 0), (Radian) .01);
+
+
+
+	//for (std::set<Actor>::iterator it = ActorSet.begin(); it != ActorSet.end(); ++it)
+	//{
+	//	//it->Update(keyList);
+	//	Actor a = *it;
+	//	//a.Update(keyList);
+	//}
+
+	//for (auto a : ActorSet)
+	//{
+	//	a->Update(keyList);
+	//}
+
+	//BOOST_FOREACH(Actor* a, ActorSet)
+	//{
+	//	a->Update(keyList);
+	//}
 	 
 	return ret;
 
