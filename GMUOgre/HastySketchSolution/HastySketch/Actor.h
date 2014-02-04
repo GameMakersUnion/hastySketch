@@ -32,10 +32,16 @@ public:
 		{
 			setPosition(position);
 		}
-		angularVelocityVect = Ogre::Vector3(5, 0, 0);
-		angularVelocityAngle = 66;
-	};
+		angularVelocityVect = Ogre::Vector3(Butter(-.5, .5), Butter(-.5, .5), Butter(-.5, .5));
+		//std::rand()
 
+		angularVelocityAngle = Butter(-.5, .5);
+		
+	};
+	Ogre::String Actor::GetName()
+	{
+		return actorEnt->getName();
+	}
 
 	static Actor * cloneActor(Ogre::SceneManager * sceneManager, Actor * source, Ogre::Vector3 changeInPosition);
 	static int CloneNum;

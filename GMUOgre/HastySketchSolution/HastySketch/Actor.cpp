@@ -8,9 +8,8 @@ void Actor::Update(std::set<OIS::KeyCode> keyPresses)
 {
 	//if (*actorNode == null)
 	actorNode->rotate(angularVelocityVect, angularVelocityAngle);
-
 }
-
+int Actor::CloneNum = 0;
 Actor * Actor::cloneActor(Ogre::SceneManager * sceneManager, Actor * source, Ogre::Vector3 changeInPosition)
 {
 	Ogre::String number = Ogre::StringConverter::toString(CloneNum++);
@@ -22,8 +21,21 @@ Actor * Actor::cloneActor(Ogre::SceneManager * sceneManager, Actor * source, Ogr
 	node->setScale(source->actorNode->getScale());
 	node->setOrientation(source->actorNode->getOrientation());
 
-	source->actorNode->getParentSceneNode()->addChild(node);
+	//source->actorNode->getParentSceneNode()->addChild(node);
+	Ogre::SceneNode *sn = source->actorNode->getParentSceneNode();
+	sn->addChild(node);
+	//std::cout << "STUFF: " << sn->numChildren() << std::endl;
 	node->attachObject(ent);
-	return &Actor(ent, node);
+	//Actor * a = (Actor*)malloc(sizeof(Actor));
+	//*a = Actor(ent, node);
+
+	//std::unique_ptr<Actor> a(new Actor(ent, node));
+
+	Actor * a = new Actor(ent, node);
+	//delete(a);
+
+	std::cout << ent->getName() << " =?=" << a->GetName() << std::endl;
+
+	//return &Actor(ent, node);
+	return a;
 }
-int Actor::CloneNum = 0;

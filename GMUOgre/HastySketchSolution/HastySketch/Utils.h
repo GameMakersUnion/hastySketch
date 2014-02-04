@@ -14,4 +14,6 @@
 	OutputDebugString(os_.str().c_str()); \
 }
 
+float Butter(float LO, float HI);
+
 #endif

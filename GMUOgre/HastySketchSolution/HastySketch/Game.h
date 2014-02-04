@@ -19,6 +19,7 @@ public:
 	std::set<OIS::KeyCode> keyList;
 	Player player;
 	std::set<Actor*> ActorSet;
+	std::vector<Actor> ActorList;
 
 protected:
 	virtual void createScene(void);

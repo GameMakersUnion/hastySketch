@@ -133,6 +133,7 @@ void Game::createScene(void)
 			
 			//Actor act = *ninja2;
 			//ActorSet.insert(act);
+			ActorList.emplace_back(*ninja2);
 
 			xRot += xRotChange;
 		}
@@ -179,24 +180,28 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	//mSceneMgr->getSceneNode("MiniSceneNode")->rotate(Ogre::Vector3(0, 1, 0), (Radian) .01);
 
 
-
-	//for (std::set<Actor>::iterator it = ActorSet.begin(); it != ActorSet.end(); ++it)
+	//int c = 0;
+	//for (std::vector<Actor>::iterator it = ActorList.begin(); it != ActorList.end(); ++it)
 	//{
 	//	//it->Update(keyList);
 	//	Actor a = *it;
-	//	//a.Update(keyList);
+	//	a.Update(keyList);
+	//	c++;
 	//}
+	//std::cout << c << std::endl;
 
 	//for (auto a : ActorSet)
 	//{
 	//	a->Update(keyList);
 	//}
 
-	//BOOST_FOREACH(Actor* a, ActorSet)
-	//{
-	//	a->Update(keyList);
-	//}
+	BOOST_FOREACH(Actor a, ActorList)
+	{
+		a.Update(keyList);
+	}
 	 
+	player.actorNode->translate(0, 0, 0.1);
+
 	return ret;
 
 }
