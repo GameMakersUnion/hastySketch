@@ -11,9 +11,16 @@ Main Game Code
 #include "Actor.h"
 #include "Player.h"
 
+#include "DotSceneLoader.h"
+
 class Game : public BaseApplication
 {
 public:
+	Ogre::SceneManager* currentPage;
+	Ogre::SceneManager* nextPage;
+	Ogre::SceneManager* prevPage;
+	Ogre::Camera* currentPageCamera;
+
 	Game(void);
 	virtual ~Game(void);
 	std::set<OIS::KeyCode> keyList;
@@ -22,6 +29,8 @@ public:
 	std::vector<Actor> ActorList;
 
 protected:
+	virtual void createCamera(void);
+	virtual void chooseSceneManager(void);
 	virtual void createScene(void);
 	virtual bool keyPressed(const OIS::KeyEvent &arg);
 	virtual bool keyReleased(const OIS::KeyEvent &arg);
