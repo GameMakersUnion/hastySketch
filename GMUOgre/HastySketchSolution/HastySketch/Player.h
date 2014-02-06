@@ -7,18 +7,19 @@ class Player : public Actor
 {
 public:
 	Player(){ oldPosition = Ogre::Vector3(0, 0, 0); } //apparently we can't call default constructors from other constructors, we need to make an INIT method for common code (later)
-	Player(Ogre::SceneManager * mSceneMgr)
+	Player(Ogre::SceneManager * mSceneMgr, Ogre::Entity * ent, Ogre::SceneNode * scenenode)
 	{
 		oldPosition = Ogre::Vector3(0, 0, 0);
-		actorEnt = mSceneMgr->createEntity("actorEntity", "Sinbad.mesh");
-		//mSceneMgr->getRootSceneNode()->attachObject(ent);
-		actorNode = mSceneMgr->createSceneNode("actorNode");
-		mSceneMgr->getRootSceneNode()->addChild(actorNode);
-		actorNode->attachObject(actorEnt);
+		
+		actorEnt = ent;
+		actorNode = scenenode;
+		//actorNode = mSceneMgr->createSceneNode("actorNode");
+		//mSceneMgr->getRootSceneNode()->addChild(actorNode);
+		//actorNode->attachObject(actorEnt);
 
-		Ogre::Vector3 pos = getPosition3();
-		setPosition(Ogre::Vector3(pos.x, pos.y, pos.z + 13));
-		velocity = Ogre::Vector3(0, 0, 0);
+		//Ogre::Vector3 pos = getPosition3();
+		//setPosition(Ogre::Vector3(pos.x, pos.y, pos.z + 13));
+		//velocity = Ogre::Vector3(0, 0, 0);
 	};
 	Player(Ogre::Entity *ent, Ogre::SceneNode *node, Ogre::Vector3 position = Ogre::Vector3(-100000, 0, 0)) //reset position's default parameter to global variable detailing origin
 	{

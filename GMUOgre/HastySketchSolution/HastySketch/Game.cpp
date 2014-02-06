@@ -14,7 +14,7 @@ using namespace Ogre;
 Game::Game(void)
 {
 	count = 0;
-	ScrollValue = 0;
+	
 }
 //-------------------------------------------------------------------------------------
 Game::~Game(void)
@@ -65,9 +65,9 @@ void Game::createScene(void)
 	mSceneMgr->getRootSceneNode()->addChild(deskNode);
 	deskNode->attachObject(desk);
 
-	player = Player(mSceneMgr);
-	mCameraMan->setTarget(player.actorNode);
-	mCameraMan->setYawPitchDist((Radian)0, (Radian)0, 50);
+	//player = Player(mSceneMgr);
+	//mCameraMan->setTarget(player.actorNode);
+	//mCameraMan->setYawPitchDist((Radian)0, (Radian)0, 50);
 	
 
 	// Create the camera
@@ -103,8 +103,27 @@ void Game::createScene(void)
 	Entity * playa = currentPage->getEntity("Player");
 	playa->setMaterial(mPtr);
 	
-	//playamat->
-		//Plane 
+	
+
+	Entity * top = currentPage->getEntity("topplane");
+	Entity * bottom = currentPage->getEntity("bottomplane");
+	Entity * left = currentPage->getEntity("leftplane");		//these are not errors, I swear.
+	Entity * right = currentPage->getEntity("rightplane");
+
+	Real xmin = left->getParentSceneNode()->getPosition().x;
+	Real xmax = right->getParentSceneNode()->getPosition().x;
+	Real ymin = top->getParentSceneNode()->getPosition().y;
+	Real ymax = bottom->getParentSceneNode()->getPosition().y;
+	Real zz = 0;
+	//
+
+	std::cout << xmin << " " << xmax << " " << ymin << " " << ymax << std::endl;
+
+	sceneRect = Rect(xmin, ymin, xmax, ymax);
+	
+
+
+
 	//---------------end Page scenes
 
 
@@ -140,16 +159,18 @@ void Game::createScene(void)
 	Ogre::ManualObject *man = mSceneMgr->createManualObject("Paper");
 	man->begin("RttMat", Ogre::RenderOperation::OT_TRIANGLE_LIST);
 	
-	Ogre::Vector3 tl(-20, -15, 13);
-	Ogre::Vector3 br(20, 15, 13);
+	Ogre::Vector3 topleft(-20, -15, 13);
+	Ogre::Vector3 bottomright(20, 15, 13);
 
-	man->position(tl.x, tl.y,  tl.z);
+	viewportRect = Rect(topleft.x, topleft.y, bottomright.x, bottomright.y);
+
+	man->position(topleft.x, topleft.y,  topleft.z);
 	man->textureCoord(0, 1);
-	man->position(br.x, tl.y, tl.z);
+	man->position(bottomright.x, topleft.y, topleft.z);
 	man->textureCoord(1, 1);
-	man->position(br.x, br.y, tl.z);
+	man->position(bottomright.x, bottomright.y, topleft.z);
 	man->textureCoord(1, 0);
-	man->position(tl.x, br.y, tl.z);
+	man->position(topleft.x, bottomright.y, topleft.z);
 	man->textureCoord(0, 0);
 
 	//man->position(-5, -5, 13);
@@ -175,6 +196,21 @@ void Game::createScene(void)
 	
 
 	//------------END MINI-SCREEN
+
+	//Entity* actorEnt = mSceneMgr->createEntity("actorEntity", "Sinbad.mesh");
+	//playa->getParentNode()->removeChild(playa->getName());
+	player = Player(mSceneMgr, playa, playa->getParentSceneNode());
+
+	playerWorldCoordNode = mSceneMgr->createSceneNode();
+	mSceneMgr->getRootSceneNode()->addChild(playerWorldCoordNode);
+	Entity* sinbad = mSceneMgr->createEntity("sinbad", "Sinbad.mesh");
+	playerWorldCoordNode->attachObject(sinbad);
+
+
+	//mCameraMan->setTarget(player.actorNode);
+	//mCameraMan->setTarget(playerWorldCoordNode);
+	//mCameraMan->setYawPitchDist((Radian)0, (Radian)0, 50);
+
 
 	Entity* nin = mSceneMgr->createEntity("myNinja", "ninja.mesh");
 	SceneNode* ninjaNode = mSceneMgr->createSceneNode("myNinjaNode");
@@ -209,6 +245,23 @@ void Game::createScene(void)
 	
 
 	//Actor* ninja2 = Actor::cloneActor(mSceneMgr, ninja, Vector3(10, 0, 0));
+
+
+
+}
+
+void Game::ConvertSceneToWorld()
+{
+	//std::cout << player.getPosition().x << " " << player.getPosition().y << std::endl;
+	Real scenex = player.getPosition().x; Real sceney = player.getPosition().y;
+	Real ratiox = (Real)abs(scenex - sceneRect.left) / (Real)abs(sceneRect.left - sceneRect.right);
+	Real ratioy = (Real)abs(sceney - sceneRect.bottom) / (Real)abs(sceneRect.bottom - sceneRect.top);
+
+	Real worldx = (Real)viewportRect.left + (Real)ratiox * (Real)abs(viewportRect.left - viewportRect.right);
+	Real worldy = (Real)viewportRect.top + (Real)ratioy * (Real)abs(viewportRect.top - viewportRect.bottom);
+
+	Vector3 worldpos = Vector3(worldx, worldy, 0);
+	playerWorldCoordNode->setPosition(worldpos);
 
 }
 
@@ -263,7 +316,7 @@ bool Game::mouseMoved(const OIS::MouseEvent &arg){
 		mSceneMgr->getCamera("PlayerCam")->setPosition(pos.x, pos.y, pos.z + 10);
 	}
 
-	std::cout << arg.state.X.rel << " : " << arg.state.Y.rel << std::endl;
+	//std::cout << arg.state.X.rel << " : " << arg.state.Y.rel << std::endl;
 
 	return true;
 }
@@ -280,18 +333,15 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
 	Camera* cam = mSceneMgr->getCamera("PlayerCam");
 	Ogre::Vector3 pos3 = player.getPosition3();
+	//cam->setPosition(Vector3(pos3.x, pos3.y, cam->getPosition().z));
 
-	cam->setPosition(Vector3(pos3.x, pos3.y, cam->getPosition().z));
 	//Camera* cam2 = mSceneMgr->getCamera("PaperCam");
 	//cam2->rotate(Vector3(0, 1, 0), (Radian)0.001);
 
-	//player.setPosition(Vector3(pos3.x, pos3.y, pos3.z + 0.01)); //ascend
-	//player.actorNode->rotate(Vector3(0, 0, 1), (Radian)10, Ogre::Node::TS_LOCAL);
-	//mSceneMgr->getSceneNode("myNinjaNode")->rotate(Ogre::Vector3(0,1,0), (Radian) .1);
-	//mSceneMgr->getSceneNode("MiniSceneNode")->rotate(Ogre::Vector3(0, 1, 0), (Radian) .01);
-
 	UpdateActors();
-
+	
+	ConvertSceneToWorld();
+	mCamera->lookAt(playerWorldCoordNode->getPosition());
 
 
 	//if (timer.getMilliseconds() < 1000.0 / 30.0)
@@ -318,6 +368,7 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt)
 }
 void Game::UpdateActors()
 {
+
 	//int c = 0;
 	//for (std::vector<Actor>::iterator it = ActorList.begin(); it != ActorList.end(); ++it)
 	//{
@@ -327,18 +378,16 @@ void Game::UpdateActors()
 	//	c++;
 	//}
 	//std::cout << c << std::endl;
-
 	//for (auto a : ActorSet)
 	//{
 	//	a->Update(keyList);
 	//}
 
+
 	BOOST_FOREACH(Actor a, ActorList)
 	{
 		a.Update(keyList);
 	}
-
-	//player.actorNode->translate(0, 0, 0.1);
 }
 
 

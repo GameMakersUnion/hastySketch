@@ -28,7 +28,9 @@ public:
 	Player player;
 	std::set<Actor*> ActorSet;
 	std::vector<Actor> ActorList;
-	int ScrollValue;
+	Rect viewportRect, sceneRect;
+	SceneNode * playerWorldCoordNode;
+
 
 	ActorManager actorManager;
 	int count;
@@ -42,6 +44,7 @@ protected:
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
 	virtual bool mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id);
 	virtual bool mouseMoved(const OIS::MouseEvent &arg);
+	virtual void ConvertSceneToWorld();
 private:
 	void UpdateActors(void);
 };
