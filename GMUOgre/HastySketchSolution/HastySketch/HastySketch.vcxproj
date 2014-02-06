@@ -11,7 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="ActorManager.cpp" />
+    <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="BaseApplication.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="DotSceneLoader.cpp" />
@@ -24,7 +25,8 @@
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.h" />
+    <ClInclude Include="ActorManager.h" />
+    <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="BaseApplication.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="DotSceneLoader.h" />

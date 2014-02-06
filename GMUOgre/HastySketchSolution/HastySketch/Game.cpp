@@ -13,6 +13,7 @@ using namespace Ogre;
 //-------------------------------------------------------------------------------------
 Game::Game(void)
 {
+	count = 0;
 	ScrollValue = 0;
 }
 //-------------------------------------------------------------------------------------
@@ -47,7 +48,7 @@ void Game::createScene(void)
 {
     // create your scene here :)
 	
-
+	actorManager.importActors();
 
 	// Set the scene's ambient light
 	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
@@ -208,7 +209,6 @@ void Game::createScene(void)
 	
 
 	//Actor* ninja2 = Actor::cloneActor(mSceneMgr, ninja, Vector3(10, 0, 0));
-	std::cout << ResourceGroupManager::getSingletonPtr()->getResourceLocationList("General").front()->archive->getName() << std::endl;
 
 }
 
@@ -271,6 +271,10 @@ bool Game::mouseMoved(const OIS::MouseEvent &arg){
 
 bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
+
+	Ogre::Timer timer;
+	timer.reset();
+
 	bool ret = BaseApplication::frameRenderingQueued(evt);
 	player.Update(keyList);
 
@@ -287,7 +291,27 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	//mSceneMgr->getSceneNode("MiniSceneNode")->rotate(Ogre::Vector3(0, 1, 0), (Radian) .01);
 
 	UpdateActors();
-	
+
+
+
+	//if (timer.getMilliseconds() < 1000.0 / 30.0)
+	//{
+		//Sleep((1000.0 / 60.0) - timer.getMilliseconds());
+	//}
+	//else
+	//{
+	//Sleep(60.0);
+		
+		if (count >= actorManager.frameMap["enemy"].animations.at(1).materials.size())
+			count = 0;
+
+		Ogre::MaterialPtr mPtr = actorManager.frameMap["enemy"].animations.at(1).materials.at(count++);
+		currentPage->getEntity("Player")->setMaterial(mPtr);
+
+		
+	//}
+
+
 
 	return ret;
 

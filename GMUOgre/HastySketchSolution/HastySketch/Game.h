@@ -12,7 +12,7 @@ Main Game Code
 #include "Player.h"
 #include "DotSceneLoader.h"
 
-#include "Animation.h"
+#include "ActorManager.h"
 
 class Game : public BaseApplication
 {
@@ -29,6 +29,9 @@ public:
 	std::set<Actor*> ActorSet;
 	std::vector<Actor> ActorList;
 	int ScrollValue;
+
+	ActorManager actorManager;
+	int count;
 
 protected:
 	virtual void createCamera(void);
