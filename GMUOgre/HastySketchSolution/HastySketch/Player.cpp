@@ -6,6 +6,7 @@
 
 void Player::Update(std::set<OIS::KeyCode> keyPresses)
 {
+	//return;
 	Actor::Update(keyPresses);
 	Ogre::Vector2 pos = getPosition();
 
