@@ -13,6 +13,7 @@ using namespace Ogre;
 //-------------------------------------------------------------------------------------
 Game::Game(void)
 {
+	ScrollValue = 0;
 }
 //-------------------------------------------------------------------------------------
 Game::~Game(void)
@@ -204,12 +205,55 @@ bool Game::keyReleased(const OIS::KeyEvent &arg)
 	keyList.erase(arg.key);
 	return BaseApplication::keyReleased(arg);
 }
+bool Game::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
+{
+	switch (id)
+	{
+	case OIS::MB_Left:
+
+		break;
+	case OIS::MB_Right:
+
+		break;
+	case OIS::MB_Middle:
+
+		break;
+	case OIS::KC_SCROLL:
+		
+		break;
+	default:
+		break;
+	}
+	return BaseApplication::mousePressed(arg, id);
+}
+bool Game::mouseMoved(const OIS::MouseEvent &arg){
+	if (arg.state.buttonDown(OIS::MB_Right))
+	{
+
+	}
+
+
+	int newscroll = arg.state.Z.rel;
+	if (newscroll > 0)
+	{
+		Vector3 pos = mSceneMgr->getCamera("PlayerCam")->getPosition();
+		mSceneMgr->getCamera("PlayerCam")->setPosition(pos.x, pos.y, pos.z - 10);
+	}
+	else if (newscroll < 0)
+	{
+		Vector3 pos = mSceneMgr->getCamera("PlayerCam")->getPosition();
+		mSceneMgr->getCamera("PlayerCam")->setPosition(pos.x, pos.y, pos.z + 10);
+	}
+
+	std::cout << arg.state.X.rel << " : " << arg.state.Y.rel << std::endl;
+
+	return true;
+}
 
 
 bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
 	bool ret = BaseApplication::frameRenderingQueued(evt);
-
 	player.Update(keyList);
 
 	Camera* cam = mSceneMgr->getCamera("PlayerCam");
@@ -222,10 +266,16 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	//player.setPosition(Vector3(pos3.x, pos3.y, pos3.z + 0.01)); //ascend
 	//player.actorNode->rotate(Vector3(0, 0, 1), (Radian)10, Ogre::Node::TS_LOCAL);
 	//mSceneMgr->getSceneNode("myNinjaNode")->rotate(Ogre::Vector3(0,1,0), (Radian) .1);
-
 	//mSceneMgr->getSceneNode("MiniSceneNode")->rotate(Ogre::Vector3(0, 1, 0), (Radian) .01);
 
+	UpdateActors();
+	
 
+	return ret;
+
+}
+void Game::UpdateActors()
+{
 	//int c = 0;
 	//for (std::vector<Actor>::iterator it = ActorList.begin(); it != ActorList.end(); ++it)
 	//{
@@ -245,12 +295,10 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	{
 		a.Update(keyList);
 	}
-	 
+
 	//player.actorNode->translate(0, 0, 0.1);
-
-	return ret;
-
 }
+
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
