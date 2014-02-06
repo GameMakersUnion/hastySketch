@@ -3,6 +3,7 @@
 
 AnimationPics::AnimationPics()
 {
+
 	//std::cout <<  << std::endl;
 	//std::cout << "hi\n";
 }

@@ -46,7 +46,6 @@ void Game::createScene(void)
 {
     // create your scene here :)
 	
-	//std::cout << ResourceGroupManager::getSingletonPtr()->getResourceLocationList("General").front().archive->;
 
 
 	// Set the scene's ambient light
@@ -208,6 +207,7 @@ void Game::createScene(void)
 	
 
 	//Actor* ninja2 = Actor::cloneActor(mSceneMgr, ninja, Vector3(10, 0, 0));
+	std::cout << ResourceGroupManager::getSingletonPtr()->getResourceLocationList("General").front()->archive->getName() << std::endl;
 
 }
 
