@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "boost\foreach.hpp"
+
 /*
 -----------------------------------------------------------------------------
 Filename:    Game.cpp
@@ -18,7 +19,29 @@ Game::~Game(void)
 {
 }
 
+
+void Game::chooseSceneManager(void)
+{
+	BaseApplication::chooseSceneManager();
+
+	// Get the SceneManager, in this case a generic one
+	currentPage = mRoot->createSceneManager(Ogre::ST_GENERIC);
+}
+
 //-------------------------------------------------------------------------------------
+
+void Game::createCamera(void)
+{
+	BaseApplication::createCamera();
+	
+	currentPageCamera = currentPage->createCamera("CurrentPageCam");
+	// Position it at 500 in Z direction
+	currentPageCamera->setPosition(Ogre::Vector3(0, 0, 58));
+	// Look back along -Z
+	currentPageCamera->lookAt(Ogre::Vector3(0, 0, 0));
+	currentPageCamera->setNearClipDistance(.001);
+
+}
 void Game::createScene(void)
 {
     // create your scene here :)
@@ -52,14 +75,34 @@ void Game::createScene(void)
 	mCamera2->lookAt(Ogre::Vector3(0, 0, 300));
 	mCamera2->setNearClipDistance(.001);
 
+
+
+
+
+
+
+	//---------------Page Scenes INITIALIZATION
+
+	DotSceneLoader loader;
+	loader.parseDotScene("TestScene.scene", "General", currentPage);
+
+	//---------------end Page scenes
+
+
+
+
+
+
+
+
 	//---------------MINI SCREEN INITIALIZATION
 
 	TexturePtr rtt_texture = TextureManager::getSingleton().createManual("RttTex",
-		ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 640, 480, 0,
+		ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, TEX_TYPE_2D, 1920, 1080, 0,
 		PF_R8G8B8, TU_RENDERTARGET);
 
 	RenderTexture * renderTexture = rtt_texture->getBuffer()->getRenderTarget();
-	renderTexture->addViewport(mCamera2);
+	renderTexture->addViewport(currentPageCamera);
 	renderTexture->getViewport(0)->setClearEveryFrame(true);
 	renderTexture->getViewport(0)->setBackgroundColour(ColourValue::White);
 	renderTexture->getViewport(0)->setOverlaysEnabled(false);
@@ -77,14 +120,17 @@ void Game::createScene(void)
 	int mapSize = 16;
 	Ogre::ManualObject *man = mSceneMgr->createManualObject("Paper");
 	man->begin("RttMat", Ogre::RenderOperation::OT_TRIANGLE_LIST);
+	
+	Ogre::Vector3 tl(-20, -15, 13);
+	Ogre::Vector3 br(20, 15, 13);
 
-	man->position(-19, 9,  13);
+	man->position(tl.x, tl.y,  tl.z);
 	man->textureCoord(0, 1);
-	man->position(31, 9,   13);
+	man->position(br.x, tl.y, tl.z);
 	man->textureCoord(1, 1);
-	man->position(31, 42, 13);
+	man->position(br.x, br.y, tl.z);
 	man->textureCoord(1, 0);
-	man->position(-19, 42, 13);
+	man->position(tl.x, br.y, tl.z);
 	man->textureCoord(0, 0);
 
 	//man->position(-5, -5, 13);
@@ -200,7 +246,7 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt)
 		a.Update(keyList);
 	}
 	 
-	player.actorNode->translate(0, 0, 0.1);
+	//player.actorNode->translate(0, 0, 0.1);
 
 	return ret;
 
