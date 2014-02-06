@@ -45,6 +45,9 @@ void Game::createCamera(void)
 void Game::createScene(void)
 {
     // create your scene here :)
+	
+	//std::cout << ResourceGroupManager::getSingletonPtr()->getResourceLocationList("General").front().archive->;
+
 
 	// Set the scene's ambient light
 	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
@@ -82,10 +85,25 @@ void Game::createScene(void)
 
 
 	//---------------Page Scenes INITIALIZATION
+	
+	// Make a bunch of materials
+	MaterialPtr mPtr = Ogre::MaterialManager::getSingleton().create("StickmanMaterial2", "General");
+	mPtr->setSceneBlending(SBT_TRANSPARENT_ALPHA);
+
+	TextureUnitState *state = mPtr->getTechnique(0)->getPass(0)->createTextureUnitState("DynamicTexture");
+	state->setAlphaOperation(LBX_MODULATE, LBS_TEXTURE, LBS_CURRENT);
+
+	Ogre::TexturePtr mTex = Ogre::TextureManager::getSingleton().load("stickman2.png", "General");
+	state->setTexture(mTex);
+
 
 	DotSceneLoader loader;
 	loader.parseDotScene("TestScene.scene", "General", currentPage);
-
+	Entity * playa = currentPage->getEntity("Player");
+	playa->setMaterial(mPtr);
+	
+	//playamat->
+		//Plane 
 	//---------------end Page scenes
 
 

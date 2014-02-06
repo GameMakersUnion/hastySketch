@@ -4,10 +4,10 @@ material Examples/Ninja
 	{
 		pass
 		{
-
 			texture_unit
 			{
 				texture nskingr.jpg
+                
 			}
 		}
 	}

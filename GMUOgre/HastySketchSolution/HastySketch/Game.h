@@ -10,8 +10,9 @@ Main Game Code
 #include "BaseApplication.h"
 #include "Actor.h"
 #include "Player.h"
-
 #include "DotSceneLoader.h"
+
+#include "Animation.h"
 
 class Game : public BaseApplication
 {
