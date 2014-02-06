@@ -29,4 +29,5 @@ void Player::Update(std::set<OIS::KeyCode> keyPresses)
 	//setPosition(Ogre::Vector3(pos.x, pos.y, getPosition3().z + 0.2));
 	setPosition(Ogre::Vector2(pos.x, pos.y));
 
+	
 }
