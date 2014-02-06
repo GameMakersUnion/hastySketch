@@ -32,10 +32,12 @@ Actor * Actor::cloneActor(Ogre::SceneManager * sceneManager, Actor * source, Ogr
 	//std::unique_ptr<Actor> a(new Actor(ent, node));
 
 	Actor * a = new Actor(ent, node);
+
 	//delete(a);
 
 	std::cout << ent->getName() << " =?=" << a->GetName() << std::endl;
 
 	//return &Actor(ent, node);
 	return a;
+
 }
