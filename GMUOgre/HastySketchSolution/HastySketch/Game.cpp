@@ -299,7 +299,7 @@ bool Game::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
 bool Game::mouseMoved(const OIS::MouseEvent &arg){
 	if (arg.state.buttonDown(OIS::MB_Right))
 	{
-		//ConvertSceneToWorld();
+
 	}
 
 
