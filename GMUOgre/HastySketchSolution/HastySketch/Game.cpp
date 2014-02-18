@@ -13,6 +13,13 @@ using namespace Ogre;
 //-------------------------------------------------------------------------------------
 Game::Game(void)
 {
+	//----------------------Jabir
+
+	//current speed of player
+	speed = 0.0;
+
+	fall= 0.0;
+	//----------------------endJabir
 	count = 0;
 	
 }
@@ -199,7 +206,7 @@ void Game::createScene(void)
 
 	//Entity* actorEnt = mSceneMgr->createEntity("actorEntity", "Sinbad.mesh");
 	//playa->getParentNode()->removeChild(playa->getName());
-	player = Player(mSceneMgr, playa, playa->getParentSceneNode());
+	player = Player(mSceneMgr, playa, playa->getParentSceneNode(), &sceneRect);
 
 	playerWorldCoordNode = mSceneMgr->createSceneNode();
 	mSceneMgr->getRootSceneNode()->addChild(playerWorldCoordNode);

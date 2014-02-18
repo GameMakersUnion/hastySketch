@@ -5,10 +5,15 @@
 #include "Actor.h"
 class Player : public Actor
 {
+
+
 public:
+	
+	Ogre::Rect * sceneRect;
 	Player(){ oldPosition = Ogre::Vector3(0, 0, 0); } //apparently we can't call default constructors from other constructors, we need to make an INIT method for common code (later)
-	Player(Ogre::SceneManager * mSceneMgr, Ogre::Entity * ent, Ogre::SceneNode * scenenode)
+	Player(Ogre::SceneManager * mSceneMgr, Ogre::Entity * ent, Ogre::SceneNode * scenenode, Ogre::Rect * sceneR)
 	{
+		sceneRect = sceneR;
 		oldPosition = Ogre::Vector3(0, 0, 0);
 		
 		actorEnt = ent;
@@ -61,8 +66,9 @@ public:
 
 private:
 	Ogre::Vector3 velocity;
-
-
+	float fall;
+	float playerHeight;
+	float speed;
 };
 
 #endif // #ifndef __Game_h_
