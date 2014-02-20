@@ -13,6 +13,12 @@ using namespace Ogre;
 //-------------------------------------------------------------------------------------
 Game::Game(void)
 {
+	//----------------------Jabir
+
+	
+
+	
+	//----------------------endJabir
 	count = 0;
 	
 }
@@ -20,6 +26,8 @@ Game::Game(void)
 Game::~Game(void)
 {
 }
+//
+float Game::fall_global = 0.01;
 
 
 void Game::chooseSceneManager(void)
@@ -201,7 +209,7 @@ void Game::createScene(void)
 
 	//Entity* actorEnt = mSceneMgr->createEntity("actorEntity", "Sinbad.mesh");
 	//playa->getParentNode()->removeChild(playa->getName());
-	player = Player(mSceneMgr, playa, playa->getParentSceneNode());
+	player = Player(mSceneMgr, playa, playa->getParentSceneNode(), &sceneRect);
 
 	playerWorldCoordNode = mSceneMgr->createSceneNode();
 	mSceneMgr->getRootSceneNode()->addChild(playerWorldCoordNode);

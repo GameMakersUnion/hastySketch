@@ -22,6 +22,13 @@ public:
 	Ogre::SceneManager* prevPage;
 	Ogre::Camera* currentPageCamera;
 
+	//---------------------Jabir
+
+	float speed;
+	static float fall_global;
+	Ogre::Real playerHeight;
+
+	//---------------------end Jabir
 	Game(void);
 	virtual ~Game(void);
 	std::set<OIS::KeyCode> keyList;
