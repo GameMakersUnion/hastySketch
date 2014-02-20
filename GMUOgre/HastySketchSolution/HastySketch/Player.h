@@ -19,7 +19,6 @@ public:
 		actorEnt = ent;
 		actorNode = scenenode;
 		velocity = Ogre::Vector3(0, 0, 0);
-
 		walking_speed = 0.2;
 		total_speed=0.0;
 		run_speed = 0.0;
@@ -76,6 +75,7 @@ private:
 	Ogre::Vector3 velocity;
 	//float fall_global;
 	float playerHeight;
+	float playerWidth;
 	float speed;
 	float walking_speed;
 	float total_speed;

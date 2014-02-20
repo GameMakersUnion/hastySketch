@@ -30,8 +30,9 @@ void Player::Update(std::set<OIS::KeyCode> keyPresses)
 	//else speed=0.2;
 
 	//gravity
-	playerHeight=0;
-	if (pos.y>(box->bottom)){
+	playerWidth = actorEnt->getBoundingBox().getHalfSize().x;
+	playerHeight = actorEnt->getBoundingBox().getHalfSize().z;
+	if ((pos.y-playerHeight)>(box->bottom)){
 		pos.y-=velocity.y;
 		velocity.y+=Game::fall_global;
 		std::cout << velocity.y << ", " << Game::fall_global << "\n";
@@ -42,13 +43,13 @@ void Player::Update(std::set<OIS::KeyCode> keyPresses)
 	
 	total_speed = walking_speed + run_speed;
 
-	if (keyPresses.count(OIS::KC_W) && (box->top)>pos.y){
+	if (keyPresses.count(OIS::KC_W) && (box->top)>(pos.y+playerHeight)){
 		pos = Ogre::Vector2(pos.x, pos.y + total_speed);
-	}if (keyPresses.count(OIS::KC_A) && (box->left)<pos.x){
+	}if (keyPresses.count(OIS::KC_A) && (box->left)<(pos.x-playerWidth)){
 		pos = Ogre::Vector2(pos.x - total_speed, pos.y);
-	}if (keyPresses.count(OIS::KC_S) && (box->bottom)<pos.y){
+	}if (keyPresses.count(OIS::KC_S) && (box->bottom)<(pos.y-playerHeight)){
 		pos = Ogre::Vector2(pos.x, pos.y - total_speed);
-	}if (keyPresses.count(OIS::KC_D) && (box->right)>pos.x){
+	}if (keyPresses.count(OIS::KC_D) && (box->right)>(pos.x+playerWidth)){
 		pos = Ogre::Vector2(pos.x + total_speed, pos.y);
 	}
 	Ogre::Vector3 vect = Ogre::Vector3(pos.x, pos.y, getPosition3().z);
