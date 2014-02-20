@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<scene formatVersion="1.0.0" generator="Ogitor SceneBuilder 0.5.4">
+    <resourceLocations>
+        <resourceLocation type="FileSystem" name=".//Models/" />
+    </resourceLocations>
+    <environment>
+        <scenemanager name="SceneManager" id="151554912" type="OctreeSceneManager" />
+        <colourAmbient r="0.5" g="0.5" b="0.5" a="1" />
+        <fog mode="none" start="0" end="1000" density="0">
+            <colour r="0.5" g="0.5" b="0.5" a="1" />
+        </fog>
+        <viewport name="Viewport1" id="2000000002" index="1">
+            <colour r="0" g="0" b="0" a="1" />
+        </viewport>
+        <camera name="intViewCamera1" viewMode="10" polyMode="3" fov="1">
+            <clipping near="0.05" far="20000" />
+            <position x="1.28639" y="-0.062711" z="-46.9369" />
+            <rotation qw="-4.37114e-008" qx="0" qy="-1" qz="0" />
+        </camera>
+    </environment>
+    <light name="mainlight" id="94393752" type="directional" castShadows="true">
+        <position x="7.24653" y="21.4443" z="0" />
+        <directionVector x="-1.78814e-007" y="-0.996917" z="0.0784588" />
+        <colourDiffuse r="1" g="1" b="1" a="1" />
+        <colourSpecular r="0" g="0" b="0" a="1" />
+    </light>
+    <nodes>
+        <node name="donatello" id="316873664">
+            <position x="0.112568" y="-9.46989" z="0.57887" />
+            <rotation qw="0.0566926" qx="0" qy="0.998392" qz="0" />
+            <scale x="0.1" y="0.1" z="0.1" />
+            <entity name="donatello" meshFile="ninja.mesh" castShadows="false">
+                <subentity index="0" materialName="Examples/Ninja" />
+                <subentity index="1" materialName="Examples/Ninja" />
+            </entity>
+        </node>
+        <node name="origin" id="151829584">
+            <position x="0" y="0" z="0" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="1" y="1" z="1" />
+        </node>
+        <node name="rafael" id="624774912">
+            <position x="13.2394" y="-9.4699" z="1.40158" />
+            <rotation qw="0.515038" qx="0" qy="0.857167" qz="0" />
+            <scale x="0.1" y="0.1" z="0.1" />
+            <entity name="rafael" meshFile="ninja.mesh" castShadows="false">
+                <subentity index="0" materialName="Examples/Ninja" />
+                <subentity index="1" materialName="Examples/Ninja" />
+            </entity>
+        </node>
+        <node name="michelangelo" id="720908224">
+            <position x="-12.662" y="-9.61006" z="-0.323332" />
+            <rotation qw="-0.366501" qx="0" qy="0.930417" qz="0" />
+            <scale x="0.1" y="0.1" z="0.1" />
+            <entity name="michelangelo" meshFile="ninja.mesh" castShadows="false">
+                <subentity index="0" materialName="Examples/Ninja" />
+                <subentity index="1" materialName="Examples/Ninja" />
+            </entity>
+        </node>
+        <node name="leftplane" id="455458208">
+            <position x="-32" y="0" z="-5" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="1" y="1" z="1" />
+            <plane name="leftplane" distance="0" width="50" height="10" xSegments="2" ySegments="2" numTexCoordSets="1" uTile="1" vTile="1" material="DefaultPlaneMaterial" hasNormals="true">
+                <normal x="1" y="0" z="0" />
+                <upVector x="0" y="0" z="1" />
+            </plane>
+        </node>
+        <node name="topplane" id="706564544">
+            <position x="0" y="24" z="-5" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="1" y="1" z="1" />
+            <plane name="topplane" distance="0" width="100" height="10" xSegments="2" ySegments="2" numTexCoordSets="1" uTile="1" vTile="1" material="DefaultPlaneMaterial" hasNormals="true">
+                <normal x="0" y="-1" z="0" />
+                <upVector x="0" y="0" z="1" />
+            </plane>
+        </node>
+        <node name="bottomplane" id="707907328">
+            <position x="0" y="-24" z="-5" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="1" y="1" z="1" />
+            <plane name="bottomplane" distance="0" width="1000" height="10" xSegments="2" ySegments="2" numTexCoordSets="1" uTile="1" vTile="1" material="DefaultPlaneMaterial" hasNormals="true">
+                <normal x="0" y="1" z="0" />
+                <upVector x="0" y="0" z="1" />
+            </plane>
+        </node>
+        <node name="rightplane" id="869869056">
+            <position x="32" y="0" z="-5" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="1" y="1" z="1" />
+            <plane name="rightplane" distance="0" width="50" height="10" xSegments="2" ySegments="2" numTexCoordSets="1" uTile="1" vTile="1" material="DefaultPlaneMaterial" hasNormals="true">
+                <normal x="-1" y="0" z="0" />
+                <upVector x="0" y="0" z="1" />
+            </plane>
+        </node>
+        <node name="Player" id="744438016">
+            <position x="-11.0302" y="-2.23662" z="0.281287" />
+            <rotation qw="-0.0121782" qx="-0.0125012" qy="-0.716193" qz="0.697684" />
+            <scale x="1" y="1" z="1" />
+            <plane name="Player" distance="0" width="10" height="10" xSegments="2" ySegments="2" numTexCoordSets="1" uTile="1" vTile="1" material="StickmanMaterial" hasNormals="true">
+                <normal x="0" y="1" z="0" />
+                <upVector x="0" y="0" z="1" />
+            </plane>
+        </node>
+        <node name="Plane#0" id="410718112">
+            <position x="0" y="0" z="0" />
+            <rotation qw="0.704015" qx="-0.710185" qy="0" qz="0" />
+            <scale x="6.4" y="1" z="4.8" />
+            <plane name="Plane#0" distance="0" width="10" height="10" xSegments="2" ySegments="2" numTexCoordSets="1" uTile="1" vTile="1" material="layer1" hasNormals="true">
+                <normal x="0" y="1" z="0" />
+                <upVector x="0" y="0" z="1" />
+            </plane>
+        </node>
+        <node name="Plane#1" id="793359168">
+            <position x="0" y="0" z="10" />
+            <rotation qw="0.707107" qx="-0.707107" qy="0" qz="0" />
+            <scale x="7.8" y="1" z="5.8" />
+            <plane name="Plane#1" distance="0" width="10" height="10" xSegments="2" ySegments="2" numTexCoordSets="1" uTile="1" vTile="1" material="layer2" hasNormals="true">
+                <normal x="0" y="1" z="0" />
+                <upVector x="0" y="0" z="1" />
+            </plane>
+        </node>
+        <node name="Plane#2" id="620319232">
+            <position x="0" y="0" z="20" />
+            <rotation qw="0.707107" qx="-0.707107" qy="0" qz="0" />
+            <scale x="9.2" y="1" z="6.8" />
+            <plane name="Plane#2" distance="0" width="10" height="10" xSegments="2" ySegments="2" numTexCoordSets="1" uTile="1" vTile="1" material="layer3" hasNormals="true">
+                <normal x="0" y="1" z="0" />
+                <upVector x="0" y="0" z="1" />
+            </plane>
+        </node>
+    </nodes>
+</scene>

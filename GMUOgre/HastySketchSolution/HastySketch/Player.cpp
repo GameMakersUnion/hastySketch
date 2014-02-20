@@ -14,11 +14,11 @@ void Player::Update(std::set<OIS::KeyCode> keyPresses)
 	if (keyPresses.count(OIS::KC_W)){
 		pos = Ogre::Vector2(pos.x, pos.y + spd);
 	}if (keyPresses.count(OIS::KC_A)){
-		pos = Ogre::Vector2(pos.x - spd, pos.y);
+		pos = Ogre::Vector2(pos.x + spd, pos.y);
 	}if (keyPresses.count(OIS::KC_S)){
 		pos = Ogre::Vector2(pos.x, pos.y - spd);
 	}if (keyPresses.count(OIS::KC_D)){
-		pos = Ogre::Vector2(pos.x + spd, pos.y);
+		pos = Ogre::Vector2(pos.x - spd, pos.y);
 	}
 	Ogre::Vector3 vect = Ogre::Vector3(pos.x, pos.y, getPosition3().z);
 

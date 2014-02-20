@@ -38,10 +38,12 @@ void Game::createCamera(void)
 	
 	currentPageCamera = currentPage->createCamera("CurrentPageCam");
 	// Position it at 500 in Z direction
-	currentPageCamera->setPosition(Ogre::Vector3(0, 0, 58));
+	currentPageCamera->setPosition(Ogre::Vector3(0, 0, -58));
 	// Look back along -Z
 	currentPageCamera->lookAt(Ogre::Vector3(0, 0, 0));
 	currentPageCamera->setNearClipDistance(.001);
+
+	//currentPageCamera->setFOVy((Radian)30);
 
 }
 void Game::createScene(void)
@@ -99,7 +101,7 @@ void Game::createScene(void)
 
 
 	DotSceneLoader loader;
-	loader.parseDotScene("TestScene.scene", "General", currentPage);
+	loader.parseDotScene("TestScene2.scene", "General", currentPage);
 	Entity * playa = currentPage->getEntity("Player");
 	playa->setMaterial(mPtr);
 	
@@ -260,6 +262,8 @@ void Game::ConvertSceneToWorld()
 	Real worldx = (Real)viewportRect.left + (Real)ratiox * (Real)abs(viewportRect.left - viewportRect.right);
 	Real worldy = (Real)viewportRect.top + (Real)ratioy * (Real)abs(viewportRect.top - viewportRect.bottom);
 
+	worldx = -worldx;
+	worldy = worldy;
 	Vector3 worldpos = Vector3(worldx, worldy, 0);
 	playerWorldCoordNode->setPosition(worldpos);
 
@@ -341,7 +345,9 @@ bool Game::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	UpdateActors();
 	
 	ConvertSceneToWorld();
-	mCamera->lookAt(playerWorldCoordNode->getPosition());
+	currentPageCamera->lookAt(-player.getPosition3().x / 2, -player.getPosition3().y / 2, player.getPosition3().z);
+	currentPageCamera->setPosition(player.getPosition3().x * 2, player.getPosition3().y * 2, currentPageCamera->getPosition().z);
+	mCamera->setPosition(playerWorldCoordNode->getPosition().x, playerWorldCoordNode->getPosition().y, mCamera->getPosition().z);
 
 
 	//if (timer.getMilliseconds() < 1000.0 / 30.0)

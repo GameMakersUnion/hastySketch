@@ -1,0 +1,16 @@
+material layer2
+{
+	technique
+	{
+		pass
+		{
+           scene_blend alpha_blend
+           depth_write off
+			texture_unit
+			{
+				texture l2.png
+                alpha_op_ex modulate src_texture src_current
+			}
+		}
+	}
+}
