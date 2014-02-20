@@ -4,6 +4,8 @@
 - Visual Studio 2010 with Service Pack 1
 - Any Git client
 - OGRE 1.9
+- Ogitor 0.5 (optional)
+
 
 All are freely available for download.
 
@@ -37,6 +39,27 @@ Run project so it compiles.
 
 Happy developing!
 
+
 ---------------
 
-Always run INSTALL.bat when changing Media folder structure, and HastySketch's config files. This can happen any time you pull changes from the repository. Ignore this if you don't know what this is! :)
+
+* 4. Optionally can use Ogitor for scene editing. If you want this, do the following:
+
+Download Ogitor from http://www.ogitor.org/ and these two zips
+https://bitbucket.org/jacmoe/ogitor/downloads/media.zip
+https://bitbucket.org/jacmoe/ogitor/downloads/projects.zip
+
+It doesn't matter where you install Ogitor, we do not suggest in game project, 
+to avoid committing unnecessarily.
+
+Expand these into the folder at Ogitor/RunPath 
+You can now start Ogitor by running RunPath/bin/qtOgitor.exe
+
+Here's a guide with more in-depth instructions after setup is complete.  
+https://docs.google.com/file/d/0B-BzwPAV7QvwSWVsT2kxV0NiOEk
+
+
+---------------
+
+Always run INSTALL.bat when changing Media folder structure, and HastySketch's config files. 
+This can happen any time you pull changes from the repository. Ignore this if you don't know what this is! :)
