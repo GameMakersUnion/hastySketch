@@ -862,10 +862,10 @@ void DotSceneLoader::processLightRange(rapidxml::xml_node<>* XMLNode, Ogre::Ligh
 	// Process attributes
 	Ogre::Real inner = getAttribReal(XMLNode, "inner");
 	Ogre::Real outer = getAttribReal(XMLNode, "outer");
-	Ogre::Real falloff = getAttribReal(XMLNode, "falloff", 1.0);
+	Ogre::Real fall_globaloff = getAttribReal(XMLNode, "fall_globaloff", 1.0);
 
 	// Setup the light range
-	pLight->setSpotlightRange(Ogre::Angle(inner), Ogre::Angle(outer), falloff);
+	pLight->setSpotlightRange(Ogre::Angle(inner), Ogre::Angle(outer), fall_globaloff);
 }
 
 void DotSceneLoader::processLightAttenuation(rapidxml::xml_node<>* XMLNode, Ogre::Light *pLight)

@@ -18,6 +18,14 @@ public:
 		
 		actorEnt = ent;
 		actorNode = scenenode;
+		velocity = Ogre::Vector3(0, 0, 0);
+
+		walking_speed = 0.2;
+		total_speed=0.0;
+		run_speed = 0.0;
+		max_spd = 0.5;
+		min_spd = 0.02;
+		acc_inc = 0.01;
 		//actorNode = mSceneMgr->createSceneNode("actorNode");
 		//mSceneMgr->getRootSceneNode()->addChild(actorNode);
 		//actorNode->attachObject(actorEnt);
@@ -66,9 +74,15 @@ public:
 
 private:
 	Ogre::Vector3 velocity;
-	float fall;
+	//float fall_global;
 	float playerHeight;
 	float speed;
+	float walking_speed;
+	float total_speed;
+	float run_speed;
+	float max_spd;
+	float min_spd;
+	float acc_inc;
 };
 
 #endif // #ifndef __Game_h_

@@ -15,10 +15,9 @@ Game::Game(void)
 {
 	//----------------------Jabir
 
-	//current speed of player
-	speed = 0.0;
+	
 
-	fall= 0.0;
+	
 	//----------------------endJabir
 	count = 0;
 	
@@ -27,6 +26,8 @@ Game::Game(void)
 Game::~Game(void)
 {
 }
+//
+float Game::fall_global = 0.01;
 
 
 void Game::chooseSceneManager(void)

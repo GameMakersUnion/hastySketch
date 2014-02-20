@@ -25,7 +25,7 @@ public:
 	//---------------------Jabir
 
 	float speed;
-	float fall;
+	static float fall_global;
 	Ogre::Real playerHeight;
 
 	//---------------------end Jabir
